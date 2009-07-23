@@ -1,0 +1,22 @@
+<!--
+form_submit_forward_external.html
+Form Submit and Forward to External Site
+ 
+Created by Jonathan LeBlanc on 06/08/09.
+Copyright (c) 2009 Yahoo! Inc. All rights reserved.
+The copyrights embodied in the content of this file are licensed under the BSD (revised) open source license.
+-->
+
+<!-- Form to add search value - link will update to pass search as GET param --> 
+<form name="myForm">
+    <input type="text" id="search" name="search" onKeyUp="alterLink()">
+     <a href="http://www.yahoo.com" id="link">Run Request</a>
+</form>
+
+<script type="text/javascript">
+//on search input key up, change the href to pass the new value on the query string
+function alterLink(){
+    document.getElementById('link').href = "http://www.yahoo.com?search=" + document.getElementById('search').value;
+}
+</script>
+

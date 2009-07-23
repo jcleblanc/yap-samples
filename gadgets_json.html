@@ -1,0 +1,42 @@
+<!--
+gadgets_json.html
+OpenSocial Gadgets JSON Examples
+
+Created by Jonathan LeBlanc on 06/08/09.
+Copyright (c) 2009 Yahoo! Inc. All rights reserved.
+
+The copyrights embodied in the content of this file are licensed under the BSD (revised) open source license.
+-->
+
+<div id='objectDisplay'></div>
+<div id='textDisplay'></div>
+<script>
+/******************** START JSON STRINGIFY ********************/
+//define object
+var myJSONObject = {"bindings": [
+	{"ircEvent": "PRIVMSG", "method": "newURI", "regex": "^http://.*"},
+	{"ircEvent": "PRIVMSG", "method": "deleteURI", "regex": "^delete.*"},
+	{"ircEvent": "PRIVMSG", "method": "randomURI", "regex": "^random.*"}]
+};
+
+//use the gadgets.json.stringify OpenSocial method to convert the JSON object to a string
+var jsonString = gadgets.json.stringify(myJSONObject);
+
+//insert the defined 'ircEvent' value of the first object element into the 
+//div defined with the id 'objectDisplay'
+document.getElementById('objectDisplay').innerHTML = jsonString;
+/********************* END JSON STRINGIFY *********************/
+
+/********************** START JSON PARSE **********************/
+//define json text - may also be server side serialized json string
+var jsontext = '{"firstname":"Jonathan","surname":"LeBlanc","phone":["111-1234","222-3456"]}';
+
+//use the gadgets.json.parse OpenSocial method to convert the json string to an object
+//replaces the traditional JSON.parse JavaScript method
+var jsonTextData = gadgets.json.parse(jsontext);
+
+//insert the defined 'surname' value of the json object into the 
+//div defined with the id 'textDisplay'
+document.getElementById('textDisplay').innerHTML = jsonTextData.surname;
+/*********************** END JSON PARSE ***********************/
+</script>

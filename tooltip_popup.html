@@ -1,0 +1,70 @@
+<!--
+tooltip_popup.html
+Tooltip With Popup
+ 
+Created by Jonathan LeBlanc on 06/08/09.
+Copyright (c) 2009 Yahoo! Inc. All rights reserved.
+
+The copyrights embodied in the content of this file are licensed under the BSD (revised) open source license.
+-->
+
+<div id="tooltip" style="display:none;position:absolute;background-color:#000;color:#fff;padding:10px;"></div>
+<div style="position:relative; margin:50px;">
+	<div id="myContainer" style="position:absolute; top:50px; left:50px; border:1px solid #000; padding:10px; width:200px">Container</div>
+</div>	
+	
+<script type="text/javascript">
+//assign mouse over handler to container
+var myDiv = document.getElementById('myContainer');
+if (myDiv.addEventListener) {
+    myDiv.addEventListener('mouseover', overCallback, false);
+	myDiv.addEventListener('mouseout', outCallback, false);
+} else if (myDiv.attachEvent) {
+    myDiv.attachEvent('mouseover', overCallback);
+	myDiv.attachEvent('mouseout', outCallback);
+}
+
+//callback for mouseover - sender is the triggering event
+function overCallback(sender){
+	var target;
+	
+	// capture the object that the mouse over event was from
+    if (window.event) {
+        target = window.event.srcElement;    
+    } else if (sender) {
+        target = sender.target;
+    } else { return; }
+	
+	//get the top and left x / y coords of the target
+	var nodeTop = target.offsetTop;
+	var nodeLeft = target.offsetLeft;
+	
+	//if the node is within a parent container, loop through each parent
+	//and add their height / width offsets to the top / left
+	nodeParent = target.offsetParent;
+    if (nodeParent != target) {
+      while (nodeParent) {
+        nodeLeft += nodeParent.offsetLeft;
+        nodeTop += nodeParent.offsetTop;
+        nodeParent = nodeParent.offsetParent;
+      }
+    }
+	
+	//set tooltip data and display
+	var tooltip = document.getElementById('tooltip');
+	tooltip.innerHTML = "This is a tooltip";
+	tooltip.style.display = "block";
+	
+	//set the tooltip top positioning to the same as the container moused over
+	tooltip.style.top = nodeTop + "px";
+	
+	//set the tooltip left positioning to the end of the container moused over (left location + width of the container)
+	tooltip.style.left = (nodeLeft + target.offsetWidth) + "px";
+}
+
+//callback for mouseout
+function outCallback(sender){
+	//hide the tooltip
+	document.getElementById('tooltip').style.display = "none";
+}
+</script>
