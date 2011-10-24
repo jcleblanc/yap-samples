@@ -23,7 +23,7 @@ $params = array(
     'imgWidth' => '44'
 );
 
-$response = $oauthapp->insertUpdate(null, $params);
+$response = $oauthapp->insertUpdate($params);
 
 //check update status.  If success, update succeeded
 if ($response){
